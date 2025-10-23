@@ -1,0 +1,9 @@
+# Godot
+.import/
+.export/
+*.cfg
+*.tmp
+*.log
+*.exe
+*.pck
+*.zip

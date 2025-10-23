@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://RaqueteJogador.gd" type="Script" id=1]
+[ext_resource path="res://RaqueteJogador2.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 512, 5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 7.5, 80 )
+
+[node name="Jogo" type="Node2D"]
+
+[node name="Fundo" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="LinhaCentral" type="ColorRect" parent="."]
+margin_left = 512.0
+margin_right = 517.0
+margin_bottom = 600.0
+
+[node name="Paredes" type="StaticBody2D" parent="."]
+
+[node name="VisualParede" type="ColorRect" parent="Paredes"]
+margin_right = 1024.0
+margin_bottom = 10.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColisaoParede" type="CollisionShape2D" parent="Paredes"]
+position = Vector2( 513, 5 )
+shape = SubResource( 1 )
+
+[node name="ParedesInferior" type="StaticBody2D" parent="."]
+
+[node name="VisualParede" type="ColorRect" parent="ParedesInferior"]
+margin_left = 1.0
+margin_top = 589.0
+margin_right = 1025.0
+margin_bottom = 599.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColisaoParede" type="CollisionShape2D" parent="ParedesInferior"]
+position = Vector2( 514, 594 )
+shape = SubResource( 1 )
+
+[node name="RaqueteJogador" type="KinematicBody2D" parent="."]
+position = Vector2( 980, 240 )
+script = ExtResource( 1 )
+
+[node name="Visual" type="ColorRect" parent="RaqueteJogador"]
+margin_right = 15.0
+margin_bottom = 160.0
+
+[node name="Colisao" type="CollisionShape2D" parent="RaqueteJogador"]
+shape = SubResource( 2 )
+
+[node name="RaqueteMaquina" type="KinematicBody2D" parent="."]
+position = Vector2( 44, 240 )
+script = ExtResource( 2 )
+
+[node name="Visual" type="ColorRect" parent="RaqueteMaquina"]
+margin_right = 15.0
+margin_bottom = 160.0
+
+[node name="Colisao" type="CollisionShape2D" parent="RaqueteMaquina"]
+shape = SubResource( 2 )
