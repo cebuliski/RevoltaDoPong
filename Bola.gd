@@ -1,4 +1,5 @@
 extends Node2D
+class_name Bola
 
 # Velocidade inicial da bola em pixels por segundo
 export var velocidade_inicial = 300
@@ -42,14 +43,19 @@ func iniciar_bola():
 func _physics_process(delta):
 	# Move a bola usando a velocidade atual
 	var movimento = velocidade * delta
-	var colisao = corpo_bola.move_and_collide(movimento)
+	var colisao: KinematicCollision2D = corpo_bola.move_and_collide(movimento)
 	
 	# Se houve colisão, processa o rebote
 	if colisao:
 		processar_colisao(colisao)
 
 # Função que processa as colisões da bola
-func processar_colisao(colisao):
+func processar_colisao(colisao: KinematicCollision2D):
+	# Fazer um switch case usando if, pois não é posssível usar o match tentando fazer referência para uma classe
+	var ponto_colisao = colisao.get_collider()
+	if ponto_colisao is RaqueteMaquina:		
+		print("Usar método para disparar o raio laser quando chegar no meio do campo")
+		
 	# Obtém a normal da colisão (direção perpendicular à superfície)
 	var normal = colisao.normal
 	
