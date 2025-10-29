@@ -26,7 +26,7 @@ func _physics_process(delta: float):
 func _ready():
 	# Remove o tiro ao sair da tela
 	if notificador and not notificador.is_connected("screen_exited", self, "_on_VisibilityNotifier2D_screen_exited"):
-# warning-ignore:return_value_discarded
+		# warning-ignore:return_value_discarded
 		notificador.connect("screen_exited", self, "_on_VisibilityNotifier2D_screen_exited")
 
 # Saiu da tela remove o tiro (VisualTiro)
@@ -37,7 +37,7 @@ func _on_VisibilityNotifier2D_screen_exited():
 # Função que podemos manipular o que pode ocorrer com o alvo que foi alvejado
 # Por exemplo: as caixas azul que irão ser implementadas vai ter o tiro sendo excluído, mas iremos manipular a vida dessas caixas (alienígenas) 
 func _processar_colisao(colisao: KinematicCollision2D):
-	var corpo := colisao.collider
+	var corpo := colisao.get_collider()
 	
 	if corpo.name == "RaqueteJogador":
 		queue_free()
