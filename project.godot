@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "RaqueteMaquina",
 "language": "GDScript",
 "path": "res://RaqueteJogador2.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Tiro",
+"language": "GDScript",
+"path": "res://Tiro.gd"
 } ]
 _global_script_class_icons={
 "Bola": "",
-"RaqueteMaquina": ""
+"RaqueteMaquina": "",
+"Tiro": ""
 }
 
 [application]
