@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Bola",
+"language": "GDScript",
+"path": "res://Bola.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "RaqueteMaquina",
+"language": "GDScript",
+"path": "res://RaqueteJogador2.gd"
+} ]
+_global_script_class_icons={
+"Bola": "",
+"RaqueteMaquina": ""
+}
+
 [application]
 
 config/name="Jogo"

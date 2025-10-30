@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name RaqueteMaquina
 
 
 # Declare member variables here. Examples:
