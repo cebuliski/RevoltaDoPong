@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 # Velocidade da raquete em pixels por segundo
-export var velocidade = 400
+export var velocidade = 400 * 50
 
 # Vetor que armazena a direção do movimento (apenas Y, pois o Pong é vertical)
 var direcao = Vector2.ZERO
