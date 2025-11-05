@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Bola.gd" type="Script" id=1]
 [ext_resource path="res://Tiro.tscn" type="PackedScene" id=2]
+[ext_resource path="res://BolaVisual.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -10,10 +11,11 @@ script = ExtResource( 1 )
 Tiro = ExtResource( 2 )
 
 [node name="CorpoBola" type="KinematicBody2D" parent="."]
+collision_mask = 6
 
-[node name="Visual" type="ColorRect" parent="CorpoBola"]
-margin_right = 20.0
-margin_bottom = 20.0
+[node name="Visual" type="Node2D" parent="CorpoBola"]
+position = Vector2( 10, 10 )
+script = ExtResource( 3 )
 
 [node name="Colisao" type="CollisionShape2D" parent="CorpoBola"]
 position = Vector2( 10, 10 )
