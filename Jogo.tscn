@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://RaqueteJogador.gd" type="Script" id=1]
 [ext_resource path="res://RaqueteJogador2.gd" type="Script" id=2]
 [ext_resource path="res://Bola.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Alvo.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 512, 5 )
@@ -45,6 +46,15 @@ color = Color( 0, 0, 0, 1 )
 [node name="ColisaoParede" type="CollisionShape2D" parent="ParedesInferior"]
 position = Vector2( 515, 593 )
 shape = SubResource( 1 )
+
+[node name="Alvo" parent="." instance=ExtResource( 4 )]
+position = Vector2( 900, 200 )
+
+[node name="Alvo2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 900, 300 )
+
+[node name="Alvo3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 900, 400 )
 
 [node name="RaqueteJogador" type="KinematicBody2D" parent="."]
 position = Vector2( 980, 240 )

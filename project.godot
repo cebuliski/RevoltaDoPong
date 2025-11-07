@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "Alvo",
+"language": "GDScript",
+"path": "res://Alvo.gd"
+}, {
 "base": "Node2D",
 "class": "Bola",
 "language": "GDScript",
@@ -25,6 +30,7 @@ _global_script_classes=[ {
 "path": "res://Tiro.gd"
 } ]
 _global_script_class_icons={
+"Alvo": "",
 "Bola": "",
 "RaqueteMaquina": "",
 "Tiro": ""
