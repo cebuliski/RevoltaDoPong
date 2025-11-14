@@ -90,7 +90,6 @@ func pegar_alvo_vivo() -> Node2D:
 	if vivos.size() == 0:
 		return null
 
-	# 🔥 Escolhe aleatoriamente um dos vivos
 	return vivos[randi() % vivos.size()]
 
 
