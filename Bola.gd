@@ -73,9 +73,6 @@ func habilitar_e_disparar(dir: Vector2):
 
 
 
-# ============================================================
-# 🔥 NOVO: Escolhe um dos alvos aleatoriamente
-# ============================================================
 func pegar_alvo_vivo() -> Node2D:
 	var candidatos = [
 		get_tree().current_scene.get_node_or_null("Alvo"),
@@ -98,9 +95,7 @@ func pegar_alvo_vivo() -> Node2D:
 
 
 
-# ============================================================
-# 🔥 ALTERADO: tiro recebe o alvo escolhido automaticamente
-# ============================================================
+
 func disparar_tiro(dir: Vector2):
 	if not Tiro:
 		return

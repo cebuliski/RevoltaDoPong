@@ -8,9 +8,7 @@ var direcao: Vector2 = Vector2.RIGHT
 onready var notificador: VisibilityNotifier2D = $VisibilityNotifier2D
 
 
-# ============================================================
 # 🔥 ALTERADO: agora recebe o Node2D do alvo
-# ============================================================
 func configurar(novo_alvo: Node2D):
 	alvo_node = novo_alvo
 
