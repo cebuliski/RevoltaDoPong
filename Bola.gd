@@ -11,7 +11,7 @@ const CENTRO_X: float = 512.0
 const TOLERANCIA_CENTRO: float = 4.0
 
 export var velocidade_inicial = 300
-export var velocidade_maxima = 800
+export var velocidade_maxima = 300 #800
 export var aceleracao_por_colisao = 50
 var velocidade = Vector2.ZERO
 
