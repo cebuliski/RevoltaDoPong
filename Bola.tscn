@@ -13,6 +13,16 @@ Tiro = ExtResource( 2 )
 [node name="CorpoBola" type="KinematicBody2D" parent="."]
 collision_mask = 6
 
+[node name="Camera2D" type="Camera2D" parent="CorpoBola"]
+current = true
+zoom = Vector2( 0.9, 1 )
+limit_left = 0
+limit_top = 0
+limit_right = 1024
+limit_bottom = 600
+smoothing_enabled = true
+smoothing_speed = 7.0
+
 [node name="Visual" type="Node2D" parent="CorpoBola"]
 position = Vector2( 10, 10 )
 script = ExtResource( 3 )
