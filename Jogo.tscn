@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://RaqueteJogador.gd" type="Script" id=1]
 [ext_resource path="res://RaqueteMaquina.gd" type="Script" id=2]
 [ext_resource path="res://Bola.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Alvo.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Jogo.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 512, 5 )
@@ -20,7 +21,34 @@ extents = Vector2( 25, 25 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 7.5, 80 )
 
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.2, 0.2, 0.2, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 1, 0.3, 0.3, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.8, 0.2, 0.2, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [node name="Jogo" type="Node2D"]
+script = ExtResource( 5 )
 
 [node name="Fundo" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -57,6 +85,7 @@ position = Vector2( 515, 593 )
 shape = SubResource( 1 )
 
 [node name="Alvo" parent="." instance=ExtResource( 4 )]
+modulate = Color( 0.0823529, 0.568627, 0.917647, 1 )
 position = Vector2( 900, 200 )
 z_as_relative = false
 collision_layer = 2
@@ -67,6 +96,7 @@ vida = 3
 shape = SubResource( 3 )
 
 [node name="Alvo2" parent="." instance=ExtResource( 4 )]
+modulate = Color( 0.0823529, 0.568627, 0.917647, 1 )
 position = Vector2( 900, 300 )
 z_as_relative = false
 collision_layer = 2
@@ -77,6 +107,7 @@ vida = 3
 shape = SubResource( 4 )
 
 [node name="Alvo3" parent="." instance=ExtResource( 4 )]
+modulate = Color( 0.0823529, 0.568627, 0.917647, 1 )
 position = Vector2( 900, 400 )
 z_as_relative = false
 collision_layer = 2
@@ -117,3 +148,58 @@ shape = SubResource( 2 )
 
 [node name="Bola" parent="." instance=ExtResource( 3 )]
 position = Vector2( 512, 300 )
+
+[node name="GameOverUI" type="CanvasLayer" parent="."]
+pause_mode = 2
+
+[node name="FundoEscuro" type="ColorRect" parent="GameOverUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.8 )
+
+[node name="PainelGameOver" type="Panel" parent="GameOverUI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -150.0
+margin_right = 200.0
+margin_bottom = 150.0
+custom_styles/panel = SubResource( 7 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverUI/PainelGameOver"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 30
+alignment = 1
+
+[node name="Titulo" type="Label" parent="GameOverUI/PainelGameOver/VBoxContainer"]
+margin_top = 86.0
+margin_right = 400.0
+margin_bottom = 100.0
+custom_colors/font_color = Color( 1, 0.2, 0.2, 1 )
+text = "VOCÊ PERDEU!"
+align = 1
+valign = 1
+
+[node name="Mensagem" type="Label" parent="GameOverUI/PainelGameOver/VBoxContainer"]
+margin_top = 130.0
+margin_right = 400.0
+margin_bottom = 144.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Todos os alvos foram destruídos!"
+align = 1
+valign = 1
+
+[node name="BotaoReiniciar" type="Button" parent="GameOverUI/PainelGameOver/VBoxContainer"]
+margin_top = 174.0
+margin_right = 400.0
+margin_bottom = 214.0
+rect_min_size = Vector2( 0, 40 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_styles/hover = SubResource( 9 )
+custom_styles/normal = SubResource( 8 )
+text = "REINICIAR"
+
+[connection signal="pressed" from="GameOverUI/PainelGameOver/VBoxContainer/BotaoReiniciar" to="." method="_on_BotaoReiniciar_pressed"]
