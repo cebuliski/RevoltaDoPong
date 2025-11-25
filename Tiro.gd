@@ -1,7 +1,7 @@
 extends KinematicBody2D
 class_name Tiro
 
-export var velocidade: float = 500.0
+export var velocidade: float = 300 #500.0
 
 var alvo_node: Node2D = null
 var direcao: Vector2 = Vector2.RIGHT
