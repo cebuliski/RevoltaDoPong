@@ -45,10 +45,7 @@ func _physics_process(delta):
 	var no_centro := abs(corpo_bola.global_position.x - CENTRO_X) <= TOLERANCIA_CENTRO
 	if no_centro and not bola_no_centro and bateu_raquete_maquina:
 
-		var direcao_x = 1.0 if velocidade.x >= 0.0 else -1.0
-		var dir = Vector2(direcao_x, 0.0)
-
-		habilitar_e_disparar(dir)
+		habilitar_e_disparar()
 		bateu_raquete_maquina = false
 
 	bola_no_centro = no_centro
@@ -73,11 +70,11 @@ func processar_colisao(colisao: KinematicCollision2D):
 		corpo_bola.position += normal * 2
 
 
-func habilitar_e_disparar(dir: Vector2):
+func habilitar_e_disparar():
 	if pode_atirar:
 		return
 	pode_atirar = true
-	disparar_tiro(dir)
+	disparar_tiro()
 	pode_atirar = false
 
 
@@ -104,7 +101,7 @@ func pegar_alvo_vivo() -> Node2D:
 
 
 
-func disparar_tiro(dir: Vector2):
+func disparar_tiro():
 	if not Tiro:
 		return
 
