@@ -31,6 +31,10 @@ onready var game_over_ui: CanvasLayer = $GameOverUI
 # ===== FUNÇÕES DE INICIALIZAÇÃO =====
 
 func _ready():
+	# GARANTIA: Força o jogo a NÃO estar pausado ao iniciar
+	# Isso resolve o bug da bola parada após reiniciar
+	get_tree().paused = false
+	
 	# Garante que a interface de Game Over está invisível no início do jogo
 	# Ela só deve aparecer quando todos os alvos forem destruídos
 	game_over_ui.visible = false
