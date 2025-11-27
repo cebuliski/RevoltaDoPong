@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://RaqueteJogador.gd" type="Script" id=1]
 [ext_resource path="res://RaqueteMaquina.gd" type="Script" id=2]
@@ -7,7 +7,10 @@
 [ext_resource path="res://Jogo.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 512, 5 )
+extents = Vector2( 511.359, 5 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 7, 289 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 25, 25 )
@@ -68,7 +71,7 @@ margin_bottom = 10.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="ColisaoParede" type="CollisionShape2D" parent="Paredes"]
-position = Vector2( 513, 5 )
+position = Vector2( 513.641, 5 )
 shape = SubResource( 1 )
 
 [node name="ParedesInferior" type="StaticBody2D" parent="."]
@@ -81,8 +84,21 @@ margin_bottom = 599.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="ColisaoParede" type="CollisionShape2D" parent="ParedesInferior"]
-position = Vector2( 515, 593 )
+position = Vector2( 513.719, 593 )
 shape = SubResource( 1 )
+
+[node name="ParedeLateral1" type="StaticBody2D" parent="." groups=["parede_game_over"]]
+
+[node name="Visual" type="ColorRect" parent="ParedeLateral1"]
+margin_left = 1011.0
+margin_top = 10.0
+margin_right = 1025.0
+margin_bottom = 588.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedeLateral1"]
+position = Vector2( 1018, 299 )
+shape = SubResource( 10 )
 
 [node name="Alvo" parent="." instance=ExtResource( 4 )]
 modulate = Color( 0.0823529, 0.568627, 0.917647, 1 )
@@ -188,7 +204,7 @@ margin_top = 130.0
 margin_right = 400.0
 margin_bottom = 144.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "Todos os alvos foram destruídos!"
+text = "Todos os alvos foram destruídos ou bola bateu no gol"
 align = 1
 valign = 1
 
