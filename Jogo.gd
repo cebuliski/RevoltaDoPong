@@ -20,6 +20,9 @@ onready var alvo1: Alvo = $Alvo
 onready var alvo2: Alvo = $Alvo2
 onready var alvo3: Alvo = $Alvo3
 
+# Referência à bola para conectar o sinal de colisão com parede de derrota
+onready var bola: Bola = $Bola
+
 # Referência à camada de interface de Game Over
 # CanvasLayer com pause_mode = 2 para funcionar mesmo com o jogo pausado
 onready var game_over_ui: CanvasLayer = $GameOverUI
@@ -28,6 +31,10 @@ onready var game_over_ui: CanvasLayer = $GameOverUI
 # ===== FUNÇÕES DE INICIALIZAÇÃO =====
 
 func _ready():
+	# GARANTIA: Força o jogo a NÃO estar pausado ao iniciar
+	# Isso resolve o bug da bola parada após reiniciar
+	get_tree().paused = false
+	
 	# Garante que a interface de Game Over está invisível no início do jogo
 	# Ela só deve aparecer quando todos os alvos forem destruídos
 	game_over_ui.visible = false
@@ -35,6 +42,10 @@ func _ready():
 	# Conecta os sinais de destruição de cada alvo para o gerenciador principal
 	# Isso permite que o jogo saiba quando um alvo foi eliminado
 	conectar_sinais_alvos()
+	
+	# Conecta o sinal da bola que detecta colisão com a parede de derrota
+	# Quando a bola passar da RaqueteJogador e bater na ParedeLateral1, o jogo termina
+	conectar_sinal_bola()
 
 
 func conectar_sinais_alvos():
@@ -53,6 +64,13 @@ func conectar_sinais_alvos():
 		alvo3.connect("destruido", self, "_on_Alvo_destruido")
 
 
+func conectar_sinal_bola():
+	# Conecta o sinal da bola que indica colisão com a parede de Game Over
+	# Esse sinal é emitido quando a bola ultrapassa a RaqueteJogador e bate na ParedeLateral1
+	if bola and not bola.is_connected("bateu_parede_game_over", self, "_on_Bola_bateu_parede_game_over"):
+		bola.connect("bateu_parede_game_over", self, "_on_Bola_bateu_parede_game_over")
+
+
 # ===== CALLBACKS DE SINAIS =====
 
 func _on_Alvo_destruido(_alvo: Alvo):
@@ -66,6 +84,12 @@ func _on_Alvo_destruido(_alvo: Alvo):
 	# Quando alvos_vivos chega a zero ou menos, o jogador perdeu
 	if alvos_vivos <= 0:
 		game_over()
+
+
+func _on_Bola_bateu_parede_game_over():
+	# Callback chamado quando a bola bate na parede de derrota (ParedeLateral1)
+	# Isso significa que o jogador não conseguiu defender com a RaqueteJogador
+	game_over()
 
 
 func _on_BotaoReiniciar_pressed():

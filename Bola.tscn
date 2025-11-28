@@ -11,6 +11,7 @@ script = ExtResource( 1 )
 Tiro = ExtResource( 2 )
 
 [node name="CorpoBola" type="KinematicBody2D" parent="."]
+collision_layer = 1
 collision_mask = 6
 
 [node name="Camera2D" type="Camera2D" parent="CorpoBola"]

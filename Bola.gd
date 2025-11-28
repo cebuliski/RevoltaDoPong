@@ -3,6 +3,9 @@ class_name Bola
 
 export(PackedScene) var Tiro
 
+# Sinal emitido quando a bola bate na parede que causa derrota
+signal bateu_parede_game_over
+
 var pode_atirar: bool = false
 var bola_no_centro: bool = false
 var bateu_raquete_maquina: bool = false
@@ -42,10 +45,7 @@ func _physics_process(delta):
 	var no_centro := abs(corpo_bola.global_position.x - CENTRO_X) <= TOLERANCIA_CENTRO
 	if no_centro and not bola_no_centro and bateu_raquete_maquina:
 
-		var direcao_x = 1.0 if velocidade.x >= 0.0 else -1.0
-		var dir = Vector2(direcao_x, 0.0)
-
-		habilitar_e_disparar(dir)
+		habilitar_e_disparar()
 		bateu_raquete_maquina = false
 
 	bola_no_centro = no_centro
@@ -53,10 +53,16 @@ func _physics_process(delta):
 
 func processar_colisao(colisao: KinematicCollision2D):
 	var normal = colisao.normal
+	
+	# Verifica se bateu na parede que causa Game Over. Se bateu, o jogo termina.
+	var quem_bateu = colisao.get_collider()
+	if quem_bateu and quem_bateu.is_in_group("parede_game_over"):
+		emit_signal("bateu_parede_game_over")
+		return
+	
 	velocidade = velocidade.bounce(normal)
 	velocidade = velocidade.normalized() * min(velocidade.length() + aceleracao_por_colisao, velocidade_maxima)
 
-	var quem_bateu = colisao.get_collider()
 	if quem_bateu is RaqueteMaquina:
 		bateu_raquete_maquina = true
 
@@ -64,11 +70,11 @@ func processar_colisao(colisao: KinematicCollision2D):
 		corpo_bola.position += normal * 2
 
 
-func habilitar_e_disparar(dir: Vector2):
+func habilitar_e_disparar():
 	if pode_atirar:
 		return
 	pode_atirar = true
-	disparar_tiro(dir)
+	disparar_tiro()
 	pode_atirar = false
 
 
@@ -95,7 +101,7 @@ func pegar_alvo_vivo() -> Node2D:
 
 
 
-func disparar_tiro(dir: Vector2):
+func disparar_tiro():
 	if not Tiro:
 		return
 
