@@ -97,44 +97,41 @@ margin_bottom = 588.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ParedeLateral1"]
-position = Vector2( 1018, 299 )
+position = Vector2( 1019, 299 )
 shape = SubResource( 10 )
 
 [node name="Alvo" parent="." instance=ExtResource( 4 )]
 modulate = Color( 0.0823529, 0.568627, 0.917647, 1 )
-position = Vector2( 900, 200 )
+position = Vector2( 986, 200 )
 z_as_relative = false
 collision_layer = 2
 collision_mask = 2
-vida = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Alvo"]
 shape = SubResource( 3 )
 
 [node name="Alvo2" parent="." instance=ExtResource( 4 )]
 modulate = Color( 0.0823529, 0.568627, 0.917647, 1 )
-position = Vector2( 900, 300 )
+position = Vector2( 986, 300 )
 z_as_relative = false
 collision_layer = 2
 collision_mask = 2
-vida = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Alvo2"]
 shape = SubResource( 4 )
 
 [node name="Alvo3" parent="." instance=ExtResource( 4 )]
 modulate = Color( 0.0823529, 0.568627, 0.917647, 1 )
-position = Vector2( 900, 400 )
+position = Vector2( 986, 400 )
 z_as_relative = false
 collision_layer = 2
 collision_mask = 2
-vida = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Alvo3"]
 shape = SubResource( 5 )
 
 [node name="RaqueteJogador" type="KinematicBody2D" parent="."]
-position = Vector2( 980, 240 )
+position = Vector2( 922, 216 )
 z_index = 1
 z_as_relative = false
 collision_layer = 2
@@ -171,6 +168,8 @@ pause_mode = 2
 [node name="FundoEscuro" type="ColorRect" parent="GameOverUI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = 2.0
+margin_bottom = 2.0
 color = Color( 0, 0, 0, 0.8 )
 
 [node name="PainelGameOver" type="Panel" parent="GameOverUI"]

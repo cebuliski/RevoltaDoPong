@@ -24,7 +24,6 @@ onready var colisao_shape: CollisionShape2D = $Colisao
 # Aqui, configuramos os parâmetros da raquete e procuramos a bola
 func _ready() -> void:
 	# Obtemos a altura real da raquete a partir do CollisionShape
-	# O Godot define o retângulo pelo "extents" (meia-altura), então multiplicamos por 2 para obter a altura total
 	if colisao_shape and colisao_shape.shape is RectangleShape2D:
 		var rect_shape = colisao_shape.shape as RectangleShape2D
 		altura_raquete = rect_shape.extents.y * 2.0
