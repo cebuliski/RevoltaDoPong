@@ -3,15 +3,19 @@ class_name Bola
 
 export(PackedScene) var Tiro
 
-# Sinal emitido quando a bola bate na parede que causa derrota
+# Sinal emitido quando a bola bate na parede OU passa da raquete (causa derrota)
 signal bateu_parede_game_over
 
 var pode_atirar: bool = false
 var bola_no_centro: bool = false
 var bateu_raquete_maquina: bool = false
+var jogo_ativo: bool = true
 
 const CENTRO_X: float = 512.0
 const TOLERANCIA_CENTRO: float = 4.0
+
+# NOVO: Se a bola passar desta posição X, é Game Over (Segurança caso não bata na parede)
+const LIMITE_DIREITA_GAMEOVER: float = 1060.0 
 
 export var velocidade_inicial = 300
 export var velocidade_maxima = 300 #800
@@ -27,6 +31,7 @@ func _ready():
 
 
 func iniciar_bola():
+	jogo_ativo = true
 	var angulo = rand_range(-PI/4, PI/4)
 
 	if randf() < 0.5:
@@ -36,11 +41,18 @@ func iniciar_bola():
 
 
 func _physics_process(delta):
+	# Se o jogo não está ativo (já deu game over), para de processar
+	if not jogo_ativo:
+		return
+
 	var movimento = velocidade * delta
 	var colisao: KinematicCollision2D = corpo_bola.move_and_collide(movimento)
 
 	if colisao:
 		processar_colisao(colisao)
+
+	if corpo_bola.global_position.x > LIMITE_DIREITA_GAMEOVER:
+		disparar_game_over()
 
 	var no_centro := abs(corpo_bola.global_position.x - CENTRO_X) <= TOLERANCIA_CENTRO
 	if no_centro and not bola_no_centro and bateu_raquete_maquina:
@@ -57,7 +69,7 @@ func processar_colisao(colisao: KinematicCollision2D):
 	# Verifica se bateu na parede que causa Game Over. Se bateu, o jogo termina.
 	var quem_bateu = colisao.get_collider()
 	if quem_bateu and quem_bateu.is_in_group("parede_game_over"):
-		emit_signal("bateu_parede_game_over")
+		disparar_game_over()
 		return
 	
 	velocidade = velocidade.bounce(normal)
@@ -69,6 +81,11 @@ func processar_colisao(colisao: KinematicCollision2D):
 	if abs(normal.y) > 0.9:
 		corpo_bola.position += normal * 2
 
+# Função auxiliar para garantir que o sinal só seja emitido uma vez
+func disparar_game_over():
+	if jogo_ativo:
+		jogo_ativo = false
+		emit_signal("bateu_parede_game_over")
 
 func habilitar_e_disparar():
 	if pode_atirar:
@@ -76,7 +93,6 @@ func habilitar_e_disparar():
 	pode_atirar = true
 	disparar_tiro()
 	pode_atirar = false
-
 
 
 func pegar_alvo_vivo() -> Node2D:
@@ -92,13 +108,10 @@ func pegar_alvo_vivo() -> Node2D:
 		if c != null and is_instance_valid(c) and c.vida > 0:
 			vivos.append(c)
 
-	# Se nenhum vivo → retorna null
 	if vivos.size() == 0:
 		return null
 
 	return vivos[randi() % vivos.size()]
-
-
 
 
 func disparar_tiro():

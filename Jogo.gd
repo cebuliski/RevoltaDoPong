@@ -1,21 +1,12 @@
 extends Node2D
 class_name Jogo
 
-# ===== VARIÁVEIS DE CONTROLE =====
-
-# Contador de alvos ainda ativos no jogo
-# Inicia com 3 pois temos Alvo, Alvo2 e Alvo3 na cena
 var alvos_vivos: int = 3
 
 # Contador de alvos que já foram destruídos
 # Usado para rastreamento e possível exibição de estatísticas
 var alvos_destruidos: int = 0
 
-
-# ===== REFERÊNCIAS DA CENA =====
-
-# Referências diretas aos três alvos presentes na cena
-# Cada alvo começa com 3 pontos de vida (configurado em Jogo.tscn)
 onready var alvo1: Alvo = $Alvo
 onready var alvo2: Alvo = $Alvo2
 onready var alvo3: Alvo = $Alvo3
@@ -50,7 +41,7 @@ func _ready():
 
 func conectar_sinais_alvos():
 	# Conecta o primeiro alvo
-	# A verificação 'if alvo1' previne erro caso o nó não exista
+
 	# A verificação 'is_connected' evita conectar o mesmo sinal múltiplas vezes
 	if alvo1 and not alvo1.is_connected("destruido", self, "_on_Alvo_destruido"):
 		alvo1.connect("destruido", self, "_on_Alvo_destruido")
@@ -69,9 +60,6 @@ func conectar_sinal_bola():
 	# Esse sinal é emitido quando a bola ultrapassa a RaqueteJogador e bate na ParedeLateral1
 	if bola and not bola.is_connected("bateu_parede_game_over", self, "_on_Bola_bateu_parede_game_over"):
 		bola.connect("bateu_parede_game_over", self, "_on_Bola_bateu_parede_game_over")
-
-
-# ===== CALLBACKS DE SINAIS =====
 
 func _on_Alvo_destruido(_alvo: Alvo):
 	# Incrementa o contador de alvos destruídos
@@ -101,9 +89,6 @@ func _on_BotaoReiniciar_pressed():
 	# Isso reseta todos os alvos, a bola, as raquetes e os contadores
 	get_tree().reload_current_scene()
 
-
-# ===== FUNÇÕES DE GERENCIAMENTO DO JOGO =====
-
 func game_over():
 	# Pausa todas as atividades do jogo
 	# Nós com pause_mode = 2 (como GameOverUI) continuam funcionando
@@ -111,6 +96,4 @@ func game_over():
 	get_tree().paused = true
 	
 	# Torna visível a camada de interface de Game Over
-	# Exibe o overlay escuro, o painel, a mensagem e o botão de reiniciar
-	# O botão já está conectado ao método _on_BotaoReiniciar_pressed() pelo editor (Node -> pressed)
 	game_over_ui.visible = true
