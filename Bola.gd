@@ -18,7 +18,7 @@ const TOLERANCIA_CENTRO: float = 4.0
 const LIMITE_DIREITA_GAMEOVER: float = 1060.0 
 
 export var velocidade_inicial = 300
-export var velocidade_maxima = 300 #800
+export var velocidade_maxima = 600 #800
 export var aceleracao_por_colisao = 50
 var velocidade = Vector2.ZERO
 
