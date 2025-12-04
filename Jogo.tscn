@@ -217,4 +217,19 @@ custom_styles/hover = SubResource( 9 )
 custom_styles/normal = SubResource( 8 )
 text = "REINICIAR"
 
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="BoxPontuacao" type="PanelContainer" parent="Interface"]
+margin_left = 798.0
+margin_top = 20.0
+margin_right = 820.0
+margin_bottom = 73.0
+
+[node name="Placar" type="Label" parent="Interface/BoxPontuacao"]
+margin_left = 7.0
+margin_top = 19.0
+margin_right = 15.0
+margin_bottom = 33.0
+text = "0"
+
 [connection signal="pressed" from="GameOverUI/PainelGameOver/VBoxContainer/BotaoReiniciar" to="." method="_on_BotaoReiniciar_pressed"]
