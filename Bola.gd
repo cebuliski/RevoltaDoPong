@@ -14,7 +14,6 @@ var jogo_ativo: bool = true
 const CENTRO_X: float = 512.0
 const TOLERANCIA_CENTRO: float = 4.0
 
-# NOVO: Se a bola passar desta posição X, é Game Over (Segurança caso não bata na parede)
 const LIMITE_DIREITA_GAMEOVER: float = 1060.0 
 
 export var velocidade_inicial = 300
@@ -72,6 +71,11 @@ func processar_colisao(colisao: KinematicCollision2D):
 		disparar_game_over()
 		return
 	
+	# Verifica se quem bateu foi o Jogador para dar PONTO
+	if quem_bateu.name == "RaqueteJogador":
+		# Chama a função adicionar_pontos no script do Jogo (pai da Bola)
+		get_parent().adicionar_pontos(1)
+
 	velocidade = velocidade.bounce(normal)
 	velocidade = velocidade.normalized() * min(velocidade.length() + aceleracao_por_colisao, velocidade_maxima)
 

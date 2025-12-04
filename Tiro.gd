@@ -38,5 +38,13 @@ func _on_VisibilityNotifier2D_screen_exited():
 func _processar_colisao(colisao: KinematicCollision2D):
 	var corpo := colisao.get_collider()
 
-	if corpo.name == "RaqueteJogador" or corpo.name == "Alvo" or corpo.name == "Alvo2" or corpo.name == "Alvo3":
+	# Se colidir com a Raquete do Jogador, dá pontos e destrói o tiro
+	if corpo.name == "RaqueteJogador":
+		# Acessa a cena atual (Jogo) e adiciona 2 pontos
+		get_tree().current_scene.adicionar_pontos(2)
+		queue_free()
+		return
+
+	# Se colidir com os alvos, apenas destrói (o dano é processado no script do Alvo)
+	if corpo.name == "Alvo" or corpo.name == "Alvo2" or corpo.name == "Alvo3":
 		queue_free()
