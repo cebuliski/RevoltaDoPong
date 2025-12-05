@@ -1,6 +1,9 @@
 extends KinematicBody2D
 class_name Tiro
 
+# Sinal emitido quando o tiro é interceptado pela RaqueteJogador
+signal interceptado_pelo_jogador
+
 export var velocidade: float = 300 #500.0
 
 var alvo_node: Node2D = null
@@ -38,13 +41,16 @@ func _on_VisibilityNotifier2D_screen_exited():
 func _processar_colisao(colisao: KinematicCollision2D):
 	var corpo := colisao.get_collider()
 
+
 	# Se colidir com a Raquete do Jogador, dá pontos e destrói o tiro
 	if corpo.name == "RaqueteJogador":
+		# Emite sinal antes de destruir
+		emit_signal("interceptado_pelo_jogador")
 		# Acessa a cena atual (Jogo) e adiciona 2 pontos
 		get_tree().current_scene.adicionar_pontos(2)
 		queue_free()
 		return
-
+	
 	# Se colidir com os alvos, apenas destrói (o dano é processado no script do Alvo)
 	if corpo.name == "Alvo" or corpo.name == "Alvo2" or corpo.name == "Alvo3":
 		queue_free()
