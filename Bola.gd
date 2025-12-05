@@ -17,7 +17,7 @@ const TOLERANCIA_CENTRO: float = 4.0
 const LIMITE_DIREITA_GAMEOVER: float = 1060.0 
 
 export var velocidade_inicial = 300
-export var velocidade_maxima = 600 #800
+export var velocidade_maxima = 1200 #600 #800
 export var aceleracao_por_colisao = 50
 var velocidade = Vector2.ZERO
 
@@ -129,5 +129,9 @@ func disparar_tiro():
 
 	if tiro.has_method("configurar"):
 		tiro.configurar(alvo)
+	
+	# Conecta o sinal de interceptação ao Jogo para ativar bônus
+	if tiro.has_signal("interceptado_pelo_jogador"):
+		tiro.connect("interceptado_pelo_jogador", get_tree().current_scene, "_on_Tiro_interceptado")
 
 	get_tree().current_scene.add_child(tiro)
